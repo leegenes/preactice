@@ -1,44 +1,42 @@
-var DynamicSearch = React.createClass( {
-  // initial state
-  getInitialState: function () {
+var DynamicSearch = React.createClass({
+
+  // sets initial state
+  getInitialState: function(){
     return { searchString: '' };
   },
 
-  // set state, trigger render method
-  handleChange: function(event) {
-    // value in input box
+  // sets state, triggers render method
+  handleChange: function(event){
+    // grab value form input box
     this.setState({searchString:event.target.value});
-    console.log("updated scope")
+    console.log("scope updated!");
   },
 
   render: function() {
+
     var countries = this.props.items;
     var searchString = this.state.searchString.trim().toLowerCase();
 
-    // filter
-    if (searchString.length > 0) {
-      countries = countries.filter(function (country) {
+    // filter countries list by value from input box
+    if(searchString.length > 0){
+      countries = countries.filter(function(country){
         return country.name.toLowerCase().match( searchString );
       });
     }
 
     return (
       <div>
-        <input type="text" value={this.state.searchString}
-          onChange={this.handleChange} placeholder="Search" />
+        <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search!" />
         <ul>
-          { countries.map(function (country) {
-            return <li>{country.name}</li>
-          })
-        }
+          { countries.map(function(country){ return <li>{country.name} </li> }) }
         </ul>
-      </div
+      </div>
     )
   }
 
 });
 
-// list of countries
+// list of countries, defined with JavaScript object literals
 var countries = [
   {"name": "Sweden"}, {"name": "China"}, {"name": "Peru"}, {"name": "Czech Republic"},
   {"name": "Bolivia"}, {"name": "Latvia"}, {"name": "Samoa"}, {"name": "Armenia"},
@@ -50,6 +48,6 @@ var countries = [
 ];
 
 ReactDOM.render(
-  <DynamicSearch items={ countries } />
+  <DynamicSearch items={ countries } />,
   document.getElementById('main')
 );
