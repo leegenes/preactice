@@ -20,4 +20,5 @@ gulp.task('del', function () {
 
 gulp.task('default', ['del'], function () {
   gulp.start('transform');
+  gulp.watch('./project/static/scripts/jsx/*.js', ['transform']);
 });
